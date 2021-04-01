@@ -1,0 +1,73 @@
+version: '3.7'
+services:
+  eventmodeling-eventstore:
+    container_name: eventmodeling-eventstore
+    image: eventstore/eventstore:latest
+    environment:
+      - EVENTSTORE_INSECURE=true
+      - EVENTSTORE_RUN_PROJECTIONS=All
+      - EVENTSTORE_START_STANDARD_PROJECTIONS=true
+      - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
+    ports:
+      - "1113:1113"
+      - "2113:2113"
+  eventmodeling-frontend-react:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile-dev
+    container_name: eventmodeling-frontend-react
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app/frontend
+      - /app/node_modules
+  eventmodeling-backend-nodejs:
+    build:
+      context: ./backend-nodejs
+      dockerfile: Dockerfile-dev
+    container_name: eventmodeling-backend-nodejs
+    ports:
+      - 4000:4000
+    environment:
+      EVENTSTORE_CONNECTION_STRING: esdb://eventmodeling-eventstore:2113?tls=false
+    volumes:
+      - ./backend-nodejs:/app/nodejs
+      - /app/node_modules
+    depends_on:
+      - eventmodeling-eventstore
+  eventmodeling-backend-dotnet:
+    build:
+      context: ./backend-dotnet/EventModelingGitHubCloneDotNet
+      dockerfile: Dockerfile-dev
+    container_name: eventmodeling-backend-dotnet
+    environment:
+      ASPNETCORE_URLS: http://+:5000
+      DOTNET_USE_POLLING_FILE_WATCHER: 1
+      EVENTSTORE_CONNECTION_STRING: esdb://eventmodeling-eventstore:2113?tls=false
+      CLOCK: SYSTEM
+      ALLOW_MERGING_SERVICE_URL: http://eventmodeling-backend-nodejs:4000/rest-api
+      DISALLOW_MERGING_SERVICE_URL: http://eventmodeling-backend-nodejs:4000/rest-api
+    volumes:
+      - ./backend-dotnet/EventModelingGitHubCloneDotNet/EventModelingGitHubCloneDotNet:/app/dotnet
+    ports:
+      - 5000:5000
+    working_dir: /app/dotnet
+    command: bash -c "dotnet watch run --no-launch-profile"
+    depends_on:
+      - eventmodeling-eventstore
+  eventmodeling-backend-kotlin:
+    build:
+      context: ./backend-kotlin
+      dockerfile: Dockerfile-dev
+    container_name: eventmodeling-backend-kotlin
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      EVENTSTORE_CONNECTION_STRING: esdb://eventmodeling-eventstore:2113?tls=false
+    volumes:
+      - ./backend-kotlin:/app/kotlin
+    working_dir: /app/kotlin
+    ports:
+      - 7000:7000
+    command: sh run-devtools.sh
+    depends_on:
+      - eventmodeling-eventstore

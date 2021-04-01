@@ -1,0 +1,15 @@
+node_modules
+.idea
+dist
+.cache
+coverage
+css
+.history
+*.stryker-tmp
+reports
+obj
+bin
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/

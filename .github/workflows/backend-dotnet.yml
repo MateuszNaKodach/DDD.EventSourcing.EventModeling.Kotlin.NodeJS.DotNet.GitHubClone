@@ -1,0 +1,32 @@
+name: .NET Core - ŻycieNaKodach.pl | Event Modeling Workshop
+
+on:
+  push:
+    paths:
+      - '.github/workflows/backend-dotnet.yml'
+      - 'backend-dotnet/**'
+      - '!**/README.md'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend-dotnet/EventModelingGitHubCloneDotNet
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+      - name: Tests | Start docker-compose with backend dependencies
+        run: docker-compose -f docker-compose.eventstore.yaml --log-level INFO up -d
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Test
+        run: dotnet test --no-build --verbosity normal

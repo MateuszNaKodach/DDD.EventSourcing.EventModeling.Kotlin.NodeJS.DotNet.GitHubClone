@@ -1,0 +1,30 @@
+name: Kotlin - ŻycieNaKodach.pl | Event Modeling Workshop
+
+on:
+  push:
+    paths:
+      - '.github/workflows/backend-kotlin.yml'
+      - 'backend-kotlin/**'
+      - '!**/README.md'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend-kotlin
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Tests | Start docker-compose with backend dependencies
+      run: docker-compose -f docker-compose.eventstore.yaml --log-level INFO up -d
+    - name: Build with Gradle
+      run: ./gradlew build

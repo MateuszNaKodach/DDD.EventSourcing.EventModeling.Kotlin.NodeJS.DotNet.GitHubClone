@@ -1,0 +1,269 @@
+openapi: 3.0.1
+info:
+  title: NodeJS | GitHub Clone REST API | ZycieNaKodach.pl
+  description: REST API for EventModelings workshops
+  version: 0.1.0
+servers:
+  - url: /rest-api
+    description: REST API v1
+tags:
+  - name: Pull Request
+    description: Opening and merging pull requests.
+paths:
+  /{owner}/{repository}/pulls:
+    post:
+      tags:
+        - Pull Request
+      description: Open Pull Request
+      parameters:
+        - name: owner
+          in: path
+          description: Repository owner
+          required: true
+          schema:
+            type: string
+            example: nowakprojects
+        - name: repository
+          in: path
+          description: Repository name
+          required: true
+          schema:
+            type: string
+            example: EventModelingGitHubClone
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/PostOpenPullRequestRequestBody'
+      responses:
+        default:
+          description: Pull request was opened
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/PostOpenPullRequestResponseBody'
+    get:
+      tags:
+        - Pull Request
+      description: Get all repository pull requests
+      parameters:
+        - name: owner
+          in: path
+          description: Repository owner
+          required: true
+          schema:
+            type: string
+            example: nowakprojects
+        - name: repository
+          in: path
+          description: Repository name
+          required: true
+          schema:
+            type: string
+            example: EventModelingGitHubClone
+      responses:
+        default:
+          description: Pull requests
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/GetPullRequestsResponseBody'
+  /{owner}/{repository}/pulls/{pullRequestId}/merge:
+    post:
+      tags:
+        - Pull Request
+      description: Merge Pull Request
+      parameters:
+        - name: owner
+          in: path
+          description: Repository owner
+          required: true
+          schema:
+            type: string
+            example: nowakprojects
+        - name: repository
+          in: path
+          description: Repository name
+          required: true
+          schema:
+            type: string
+            example: EventModelingGitHubClone
+        - name: pullRequestId
+          in: path
+          description: Id of the pull request
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 2480fc2c-bbd7-427c-9439-02f76583aef5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/MergePullRequestRequestBody'
+      responses:
+        default:
+          description: Pull request was merged
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/MessageResponseBody'
+  /{owner}/{repository}/pulls/{pullRequestId}/allow-merging:
+    post:
+      tags:
+        - Pull Request
+      description: Allow Pull Request Merging
+      parameters:
+        - name: owner
+          in: path
+          description: Repository owner
+          required: true
+          schema:
+            type: string
+            example: nowakprojects
+        - name: repository
+          in: path
+          description: Repository name
+          required: true
+          schema:
+            type: string
+            example: EventModelingGitHubClone
+        - name: pullRequestId
+          in: path
+          description: Id of the pull request
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 2480fc2c-bbd7-427c-9439-02f76583aef5
+      responses:
+        default:
+          description: Pull request merging was allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/MessageResponseBody'
+  /{owner}/{repository}/pulls/{pullRequestId}/disallow-merging:
+    post:
+      tags:
+        - Pull Request
+      description: Disallow Pull Request Merging
+      parameters:
+        - name: owner
+          in: path
+          description: Repository owner
+          required: true
+          schema:
+            type: string
+            example: nowakprojects
+        - name: repository
+          in: path
+          description: Repository name
+          required: true
+          schema:
+            type: string
+            example: EventModelingGitHubClone
+        - name: pullRequestId
+          in: path
+          description: Id of the pull request
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 2480fc2c-bbd7-427c-9439-02f76583aef5
+      responses:
+        default:
+          description: Pull request merging was disallowed
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/MessageResponseBody'
+components:
+  schemas:
+    MessageResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    PostOpenPullRequestRequestBody:
+      type: object
+      properties:
+        title:
+          description: Pull Request title
+          type: string
+          example: New feature
+        sourceBranch:
+          description: Branch name
+          type: string
+          example: develop
+        targetBranch:
+          description: Branch name
+          type: string
+          example: main
+        author:
+          description: Author username
+          type: string
+          example: nowakprojects
+    PostOpenPullRequestResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+        pullRequestId:
+          type: string
+          format: uuid
+          example: 2480fc2c-bbd7-427c-9439-02f76583aef5
+        repositoryId:
+          type: string
+          format: owner+repository
+          example: nowakprojects+EventModelingGitHubClone
+    MergePullRequestRequestBody:
+      type: object
+      properties:
+        mergedBy:
+          description: Who merge pull request
+          type: string
+          example: nowakprojects
+    GetPullRequestsResponseBody:
+      type: object
+      properties:
+        pullRequests:
+          type: array
+          example: nowakprojects
+          items:
+            $ref: '#/components/schemas/PullRequestDto'
+    PullRequestDto:
+      type: object
+      properties:
+        pullRequestId:
+          type: string
+          format: uuid
+          example: 2480fc2c-bbd7-427c-9439-02f76583aef5
+        repositoryId:
+          type: string
+          format: owner+repository
+          example: nowakprojects+EventModelingGitHubClone
+        title:
+          description: Pull Request title
+          type: string
+          example: New feature
+        sourceBranch:
+          description: Branch name
+          type: string
+          example: develop
+        targetBranch:
+          description: Branch name
+          type: string
+          example: main
+        status:
+          description: merging status
+          type: string
+          enum:
+            - notReadyToMerge
+            - readyToMerge
+            - merged
+          example: readyToMerge
+        author:
+          description: Author username
+          type: string
+          example: nowakprojects

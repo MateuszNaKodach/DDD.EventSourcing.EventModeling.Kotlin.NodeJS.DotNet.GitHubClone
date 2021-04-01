@@ -1,0 +1,4 @@
+event-modeling:
+  github-clone:
+    event-store-db:
+      connection-string: ${EVENTSTORE_CONNECTION_STRING}

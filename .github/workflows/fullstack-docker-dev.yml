@@ -1,0 +1,23 @@
+name: Docker-Compose DEV | Event Modeling Workshop
+
+on:
+  push:
+    paths-ignore:
+      - '**/README.md'
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: docker-compose | build
+        run: docker-compose -f docker-compose.dev.yaml build
+      - name: docker-compose | up
+        run: |
+          docker-compose -f docker-compose.dev.yaml up &
+          sleep 120
+          docker-compose -f docker-compose.dev.yaml down

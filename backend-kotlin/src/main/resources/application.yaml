@@ -1,0 +1,14 @@
+event-modeling:
+  github-clone:
+    event-store-db:
+      connection-string: "esdb://localhost:2113?tls=false"
+    slices:
+      write:
+        add-single-pull-request-comment:
+          enabled: true
+      read:
+        pull-request-comments:
+          enabled: true
+
+server:
+  port: 7000

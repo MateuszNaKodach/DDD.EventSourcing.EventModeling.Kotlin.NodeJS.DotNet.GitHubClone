@@ -1,158 +1,224 @@
-# CodersCamp 2020 - Projekt końcowy (FullStack — Node.js + React)
-**CodersCamp (coderscamp.edu.pl) - Największy otwarty kurs programowania webowego** 
+# EventModelingWorkshopPL | GitHubClone
+Opracowanie: Mateusz Nowak (ZycieNaKodach.pl)
 
-### Wprowadzenie
-Gratulacje! 
-Udało Wam się dotrzeć prawie do końca kursu. 
-Posiadacie już wiele umiejętności, które są konieczne, aby rozpocząć karierę programisty.
-W trakcie tego projektu powinniście dowieść, że jesteście gotowi wykonywać kompletne aplikacje webowe.
-Wraz ze zbieraniem wymagań, dzieleniem pracy, zarządzaniem, całym procesem wytwórczym, testowaniem oraz wdrażaniem.
+Szkolenie głównie skupione na technikach takich jak Event Storming, Event Modeling i Domain-Driven Design.
+Sam brałem nie raz udział w takich szkoleniach, ale żadne nie było jeszcze tak kompleksowe, aby prowadziło od fazy designu i karteczek na ścianie (teraz Miro) aż do działającego kodu.
+Kod startowy będzie dostępny w C# (.NET Core) / Kotlin (Spring) / TypeScript (Express). Wszystko zintegrowane poprzez EventStoreDB.
 
-### Zasady wykonywania projektu (wspólne dla wszystkich grup i mentorów): 
-
-##### W projekcie każdy z uczestników powinien zaprezentować praktyczną znajomość poniższych zagadnień związanych z Node.js i React:
-
-**Node.js / Express**
-- REST API
-- zakładanie konta użytkownika
-- autoryzacja i autentykacja użytkownika, różne uprawnienia. Wykorzystanie Json Web Token.
-- wykorzystanie bazy danych (NoSQL lub SQL)
-- integracja z jakimś zewnętrznym systemem (np. wysyłanie e-maili)
-- pisanie testów
-
-**React**
-- Komunikacja klient — serwer
-- functional component
-- React hooks
-- tworzenie list komponentów
-- JSX
-- pisanie testów
-
-Aplikacja musi korzystać z bazy danych (noSQL lub SQL) i zostać wykonana w architekturze Klient-Serwer (składać się co najmniej z 3 jednostek wdrożeniowych, tzn.: aplikacja webowa, backend i baza danych). 
-
-Back-end zależy zaimplementować za pomocą frameworka Express.js lub NestJS (uczą się go backendowcy w ostatnim rozdziale).
-
-Front-end wykonajcie przy użyciu biblioteki React. 
-Jeśli czujecie się na siłach, zastosujcie Redux do zarządzania stanem (frontendowcy poznają go w ostatnim dziale).
-
-Ponieważ projekt jest bardzo duży, będziecie na niego mieli 2 razy więcej czasu, niż poprzednio.
-Sugerujemy w czasie działu 5 implementować część back-endową, a wczasie działu 6-tego część front-endową.
-Wiedzę uzyskaną w dziale 6-tym możecie wykorzystać w projekcie, ale nie jest to koniecznie.
-Ale to Wy odpowiadacie za powodzenie projektu, więc podejmujcie decyzje, korzystajcie z porad bardziej doświadczonych
-i zróbcie coś niesamowitego! W trakcie trwania projektu odbędą się dwie prezentacje (z częstotliwością jak dotychczas).
-Najprawdodpoboniej na pierwszym spotkaniu zaprezentujecie samo REST API. Warto przygotować je tak, jakby miało być odrębnym produktem!
-A na prezentacji kończącej projekt z Reacta, pokażecie jak działa wszystko razem.
-
-##### W trakcie trwania projektu należy wyznaczyć w zespole następujące role
-tak jak opisano w przypadku poprzedniego projektu.
-
-##### Sposób oceny projektu (i wszystkich kolejnych projektów na CodersCamp)
-tak jak opisano w przypadku poprzedniego projektu.
+UWAGA! 
+Kod ma najmniej abstrakcji jak tylko to możliwe, co nie jest najlepszą praktyką programistczyną w kontekście rozszerzalności.
+Jednakże ułatwi to zrozumienie co się dzieje, już w trakcie warsztatów.
 
 
-### Projekt końcowy — aplikacja webowa
-Teraz przechodzimy do przykładowego projektu, który został przygotowany przez organizatorów kursu.
-Proponowany projekt pozwala na zastosowania większości umiejętności, jakie powinniście posiąśc w trakcie przerabiania działu.
-Jednakże jeśli macie pomysł na projekt podobnej skali, który spełni opisane na górze wymagania i czujecie się na siłach
-w zdefiniowaniu funkcjonalności, przygotowaniu ekranów i podzieleniu go na zadania — to nic nie stoi na przeszkodzie,
-aby wykonać np. coś związanego z zainteresowaniami Waszej grupy :)
-**W tym przypadku zachęcamy jeszcze bardziej niż zazwyczaj, aby wykonać coś innego niż proponowany temat.
-Ten projekt będzie swoistym zwieńczeniem i podsumowaniem wszystkiego, co nauczyliście się w trakcie trwania CodersCamp.
-Przykładowy projekt dajemy Wam głównie po to, abyście odczuli skalę, w której stronę powinniście dążyć przy określaniu własnego pomysłu.**
-Możecie też zaimplementować Kino, ale zupełnie inaczej (lepiej) niż tutaj jest zaproponowane. 
-Niech wasza prezentacja zwali z nóg uczestników.
-Pamiętajcie tylko, że czas jest ograniczony i musicie zdążyć z aplikacją do prezentacji. 
-Ten projekt jest niezwykle ważny dla waszej przyszłej programistycznej kariery. Można powiedzieć, że od tego zależy wasze być albo nie być podczas poszukiwania pierwszej pracy. W protoflio Junior Developera znakomicie sprwdzają się tego rodzaju projekty - a okazja do wykonania go w zespole i to pod okiem mentora - już może Wam się więcej nie powtórzyć.
-Więc dajcie z siebie wszystko i powodzenia!
- 
-Czas porzucić narrację CodersCamp i wcielić się w członka zespołu projektowego, jeśli decydujecie się wykonać aplikację dla kina...
+W trakcie szkolenia dowiesz się wielu rzeczy i zastosujesz je w praktyce:
+- Zobaczysz co to Bounded Context i jak stosować zasady SOLID na poziomie architektury
+- Odkryjesz działanie omawianej domeny za pomocą Event Stormingu
+- Wykonasz design systemu z użyciem Event Modelingu (na jakiej zasadzie wyznaczać mikroserwisy czy modularny monolit)
+- Zobaczysz jak te praktyki pomagają zaplanować pracę i podzielić zadania
+- Zaplanujesz rozszerzalną architekturę systemu i zobaczysz zależności między komponentami
+- Wykonasz części systemu z wykorzystaniem Event Sourcingu i zastosujesz EventStore (zobaczysz jakie to proste z Event Modelingiem)
+- Otrzymasz materiały do dalszego własnego rozwoju poznanych umiejętności
 
-### MonoKino — Założenia projektowe
-Gratulacje! 
-Po ostatnim sukcesie Waszemu zespołowi udało się znaleźć pierwszego przedsiębiorcę, 
-który będzie chciał z Waszą pomocą opracować całą aplikację webową.
-
-Wasz klient jest właścicielem sieci kin o nazwie MonoKino.
-MonoKino zaczynało w jednym mniejszym mieście, a teraz chcą wyjść na skalę ogólnopolską.
-Obecna prowadzona jest rezerwacja jedynie przez email lub rozmowy telefoniczne, a opłaty za bilety są rozliczanie przy pomocy gotówki.
-
-Ciągle zwiększanie się liczby placówek i klientów wymaga zautomatyzowania tych procesów.
-Automatyzacja powinna zostać wykonana przy pomocy aplikacji webowej. Klient w niedalekiej przyszłości zapewne będzie chciał także wersję mobilną.
-Może dobrze byłoby przygotować aplikację od razu na działanie na telefonach? Dacie radę zaproponować klientowi coś co spełni także to wymaganie?
-
-Z analizy wynika, że największą konkurencją jest znana sieć kin, której stronę znajdziecie [TUTAJ](https://multikino.pl/repertuar/wroclaw-pasaz-grunwaldzki/teraz-gramy/alfabetyczny). 
-Jak to często bywa, klient chce, aby jego strona była: „taka jak u konkurencji” i oczywiście nowoczesna. 
-**Liczy się także czas „time to market”, dlatego na samym początku, trzeba się skupić, tylko na koniecznych do przynoszenia profitu funkcjonalnościach.**
-Te mniej ważne można zawsze dorobić po deadline.
-Aplikacja ma obsłużyć cały proces rezerwacji i sprzedaży biletów: od momentu **wyboru filmu**,
-poprzez **rezerwację miejsc**, aż do **płatności** (początkowo system płatności może być zamockowany). Warto pomyśleć też o automatyzacja **sprawdzania biletów** przy wejściu do kina.
-Po stronie panelu administracyjnego klient spodziewa się funkcjonalności, które pomogą mu konfigurować cały proces.
-
-Aby sprostać oczekiwaniom klienta, zapoznajcie się z dokładniejszym opisem działania sieci kin. 
-Poniżej są przedstawione najważniejsze terminy z dokładnymi wyjaśnieniami. 
+Techniki Domain-Driven Design naturalnie wpasowują się w EventModeling.
+Nie będziemy się skupiać na DDD, które przyjdzie naturalnie.
 
 
-### Wymagania
-Klient wraz z analitykiem biznesowym spisali podstawowe wymagania co do projektu.
-Jednakże nie krępujcie się przed ich doprecyzowaniem / zmianami, czy też ulepszeniami.
-To Wy jesteście profesjonalistami w swoim fachu i Klient ufa, że zrobicie wszystko jak najlepiej.
-Jeśli uważacie, że jakichś informacji Wam brakuje, najlepiej, jeśli Product Owner spróbuje uzupełnić luki w wymaganiach wraz z klientem.
-Wymagania podzielono na dwie sekcje. Aplikację dla widza i panel administracyjny.
+## Pobranie repozytorium
 
-#### Aplikacja dla widza (repertuar, rezerwacja i zakup biletów)
+`git clone https://github.com/nowakprojects/EventModelingGitHubClone.git`
 
-##### Prototyp interfejsu użytkownika
+## Uruchomienie serwisów
 
-Niestety współpraca z grafikiem projektującym interfejs nie układała się najlepiej i jego praca nie została skończona.
-Wasz zespół zobowiązał się do pokrycia wymaganych funkcjonalności, chociaż nie na wszystko znajdziecie projekty interfejsu.
-Możecie sami wykonać projekty ekranów i/lub od razu implementować. Warto wzorować się na rozwiązaniach konkurencyjnych.
-Projekt grafika znajdziecie tutaj: https://www.figma.com/file/cuKLOWensUxkq5dYB082yd/CodersCamp2020.Project.FullStack-Node-React.Cinema?node-id=4412%3A3065
+###Lokalnie
+**UWAGA! Dużo osób zgłaszało problemy z uruchominiem poprzez docker-compose, więc zalecana jest ta instrukcja z uruchomieniem lokalnym.**
 
-##### Wymagania funkcjonalne:
-1. Klient może zarejestrować się w systemie, podając imię, nazwisko, hasło i adres e-mail.
-1. Klient może zalogować się w systemie, podając adres e-mail i hasło.
-1. Klient może przeglądać filmy „nadchodzące". Czyli takie, które są dostępne dla kina, ale nie zaplanowano jeszcze dla nich żadnych seansów.
-1. Klient wybiera film i seans, na jaki chce kupić bilet / zarezerwować miejsce.
-1. Klient może przeczytać szczegóły o filmie takie jak: Tytuł, rok produkcji, opis fabuły, plakat, kategorie (może być kilka), czas trwania.
-1. W przypadku rezerwacji miejsca płatność odbywa się w kasie. Jeśli klient kupuje bilet, płatności należy dokonać on-line.
-1. Rezerwacji może dokonać jedynie zarejestrowany klient. 
-1. Zakupu można dokonać bez rejestracji — podając jedynie adres email.
-1. Jeśli rezerwacja nie zostanie odebrana na 15 minut przed rozpoczęciem seans, miejsce zostaje zwolnione, a rezerwacja anulowana.
-1. Jeden klient nie może zarezerwować więcej niż 20 miejsc na jeden seans. 
-1. Klient powinien zostać poinformowany o statusie swojej płatności w systemie.
-1. Klient powinien otrzymać bilet na podany przy zakupie / rejestracji adres email.
+Do wykonania ćwiczeń praktycznych, jeśli dysponujesz odpowiednim środowiskiem - najlepiej uruchomić:
+- (WYMAGANE) EventStore (Docker). W głównym katalogu wykonaj:
+  `docker-compose -f docker-compose.eventstore.yaml up`
+- (WYMAGANE) Frontend. 
+  - W katalogu `frontend` na początek zależnie od tego, w jakim środowisku chcesz wykonywać zadania zmień nazwę pliku env z odpowiednim postfixem na `env.local`.
+  - W katalogu `frontend` wykonaj kolejno:
+    - `npm install`
+    - `npm run start`
+- (WYMAGANE) Backend NodeJS.
+  - Uruchom wg. swojego ulubionego sposobu LUB:
+  - W katalogu`backend-nodejs` wykonaj kolejno:
+    - `npm install`
+    - `npm run start:dev`
+- (OPCJONALNE - wybierz jedno) Backend .NET Core.
+  - Uruchom wg. swojego ulubionego sposobu LUB:
+  - W katalogu `backend-dotnet/EventModelingGitHubCloneDotNet/EventModelingGitHubCloneDotNet` wykonaj kolejno:
+    - `dotnet restore`
+    - `dotnet run`
+- (OPCJONALNE - wybierz jedno) Backend Kotlin
+  - Uruchom wg. swojego ulubionego sposobu LUB:
+    - W katalogu `backend-kotlin` wykonaj kolejno:
+      - `./gradlew build`
+      - `./gradlew bootRun`
+  
 
+### W trybie reagowania na zmiany (developerski)
+Repozytorium zostało przygotowane w taki sposób, 
+abyś mógł uruchomić projekty i wprowadzać zmiany bez posiadania zainstalowanych środowisk dla wszystkich języków programowania.
 
-#### Panel Administracyjny (zarządzanie filmami, planowanie repertuaru, sale kinowe)
+To, co jest wymagane to Docker Compose.
+Jedynie zmiany bibliotek niosą za sobą potrzebę przebudowania aplikacji:
 
-##### Prototyp interfejsu użytkownika
-Przygotowanie projektu od 0 lub implementacja bez projektu.
+`docker-compose -f docker-compose.dev.yaml build`
 
-##### Wymagania funkcjonalne:
-1. Administrator wprowadza informację o placówkach w sieci kin. Sieć ma zamiar posiadać Kina w różnych miastach na całym świecie. 
-Dlatego konieczne jest, aby prowadzić ewidencję Kin sieci. Kino musi mieć swój unikalny numer identyfikacyjny. Każda placówka ma określony adres i godziny otwarcia.
-1. Administrator wprowadza informacje o filmie, który będzie dostępy dla wszystkich placówek w sieci.
-1. Usunięcie filmu powinno skutkować odwołaniem wszystkich zaplanowanych projekcji, anulowaniem rezerwacji i wysłaniem do klientów, którzy zakupili bilety, wiadomości o zwrocie kosztów.
-1. Administrator wprowadza informacje o seansach w danych kinie i przypisuje do seansu salę kinową i film oraz określa godzinę.
-1. W danej sali kinowej nie mogą odbywać się 2 seanse jednocześnie. Dodatkowo między seansami należy zachować co najmniej 15 minutową przerwę na sprzątanie.
-1. Seans musi się kończyć co najmniej 15 minut przed zamknięciem kina i zaczynać minimum 15 minut po otwarciu kina.
-1. Każda sala kinowa ma określone, ile posiada kolumn i rzędów (zakładamy uproszczony model prostokąta).
-1. Administrator zarządza listą cen za bilety. Wybiera jakie bilety są dostępne na które seanse. (np. na seans premierowy nie obowiązują zniżki, ale na resztę można zakupić bilet studencki).
-1. Administrator otrzymuje raport w czasie rzeczywistym o liczbie sprzedanych i zarezerwowanych miejsc. Dzięki temu będzie mógł podejmować
-decyzje, które zwiększa przychód.
-1. Administrator może konfigurować czy na dany seans można zostawiać (w czasie zakupu lub rezerwacji) puste miejsca na rogu rzędów.
-Tę zasadę może zmienić w każdym momencie.
-1. Administrator może włączyć specjalny tryb pandemii, w którym muszą być przynajmniej 2 miejsca odstępu w jednym rzędzie, między miejscami
-z 2 różnych rezerwacji / zakupów.
+Później już wystarczy uruchamiać tylko poprzez:
+
+`docker-compose -f docker-compose.dev.yaml up`
 
 
-## Możliwe usprawnienia i dodatkowe funkcjonalności:
-1. Integracja z zewnętrznym systemem płatności — np. PayU (wykorzystać Sandbox, który umożliwia testowanie płatności bez prawdziwych transakcji)
-1. Sprawdzanie biletów — generowanie kodu QR z zakupionym biletem. Bilet jest „sprawdzony” po zeskanowaniu kodu QR telefonem.
-1. Kreator do ustawiania miejsc na sali w bardziej skomplikowany sposób niż wspomniany prostokąt.
+### W trybie builda (bez reagowania na zmiany)
+W tym przypadku wszelkie zmiany kodu czy nawet zmiennych środowiskowych wymagają przebudowania docker-compose.
+Odkomentuj z pliku docker-compose.build.yaml serwisy, na których będziesz chciał pracować i uruchom je lokalnie.
 
-## Dodatkowe zadania (wykraczające poza zakres kursu):
-1. Wykonanie testów E2E, przy użyciu odpowiedniego narzędzia. Proponujemy np. Cypress.
-1. Utworzenie Storybook dla zdefiniowanych komponentów.
+`docker-compose -f docker-compose.build.yaml build`
 
-Wszelkie inne dodane przez Was funkcjonalności czy usprawnienia infrastrukturalne należy przedstawić w README.md projektu :)
+Później już wystarczy uruchamiać tylko poprzez:
+
+`docker-compose -f docker-compose.build.yaml up`
+
+
+### Uruchomione aplikacje
+
+Aplikacje uruchomione poprzez docker-compose, nie różnią się niczym od uruchomienia poszczególnych serwisów lokalnie.
+Więc jeśli chcesz uruchomić coś lokalnie dla lepszego developer experience, to po prostu zakomentuj odpowiedni serwis w `docker-compose.yaml`
+Po uruchomieniu będą dostępne następujące serwisy:
+
+- Frontend:     http://localhost:3000/ZycieNaKodach/EventModelingRepo/pulls
+- Backend NodeJS:       http://localhost:4000/swagger/
+- Backend .NET:         http://localhost:5000/swagger/index.html
+- Backend Kotlin:       http://localhost:7000/swagger-ui/
+- EventStore:   http://localhost:2113/  (user: admin   password: changeit)
+
+Upewnij się, że każdy z tych adresów odpowiada. Zależnie od tego czy wybrałeś .NET czy Kotlina. 
+Jeśli chcesz pisać w NodeJS wystarczy Ci sam Node.
+Najdłużej trwa uruchomienie serwisu w Koltinie. W logach docker-compose powinieneś zobaczyć:
+`eventmodeling-backend-kotlin    | 2021-04-01 09:29:39.922  INFO 447 --- [  restartedMain] p.z.e.g.GitHubCloneApplicationKt         : Started GitHubCloneApplicationKt in 12.168 seconds (JVM running for 12.987)`
+
+Kod poszczególnych wersji backendu nie realizuje dokładnie tego samego, dlaczego tak jest, dowiesz się w trakcie szkolenia.
+
+## Przygotowanie | Wymagania
+Aby skorzystać jak najwięcej ze szkolenia, musimy zbudować wspólne zrozumienie niektórych koncepcji.
+Przed szkoleniem dobrze zapoznać się z linkami poniżej.
+
+- I część - projektowanie / modelowanie (3 godziny)
+  - What is Event Modeling | https://eventmodeling.org/posts/what-is-event-modeling/
+  - EVENTSTORMING i 4 poziomy zdarzeń | https://www.youtube.com/watch?v=31PNdWaUrTY&feature=youtu.be
+  
+- II część - implementacja (kolejne 3 godziny)
+  - A Functional Foundation for CQRS/ES | https://verraes.net/2014/05/functional-foundation-for-cqrs-event-sourcing/
+  - Zobacz co to EventSourcing:
+    - https://www.eventstore.com/blog/what-is-event-sourcing
+    - https://www.eventstore.com/blog/convincing-your-cto
+  - Zapoznaj się krótko z EventStoreDB:
+    - https://developers.eventstore.com/clients/grpc/getting-started/#connection-details
+
+-----------
+
+## Agenda
+
+Komunikacja w trakcie warsztatów:
+- Wszyscy: Kanał Slack
+- Głównie spotkanie: VBC
+- Zespół 1: Google Meet
+- Zespół 2: Google Meet
+
+### Część I - Projektowanie i modelowanie
+  
+
+#### Rozpoczęcie (30 min.)
+- 5 min.    |   Przywitanie i zapoznanie z MIRO Board
+- 15 min.   |   Wstęp do Bounded Contextu i EventStormingu.
+  - Przykłady kodu
+  - Porównania przedstawiające sens stosowania BC
+  - Inne metody modelowania jak UML
+  - Szybkie ćwiczenie na EventStorming.
+  
+#### Event Storming — Praktyka w zespołach (60 min.)
+- 15 min. | EventStorming w MIRO - wprowadzenie
+  - Omówienie notacji
+  - Przykład modelowania
+- 5 min.  | Podział na zespoły
+- 20 min. | Praca w zespołach nad domeną GitHub (cz. 1)
+- 10 min. | Spotkanie wszystkich - pytania / wątpliwości
+- 20 min. | Praca w zespołach nad domeną GitHub (cz. 2 - kontynuacja)
+
+#### PRZERWA - 15 minut
+
+#### Event Modeling - praktyka w zespołach (90 min.)
+- 20 min. | EventModeling - wprowadzenie do praktyki
+  - Różnica między EventStormingiem
+  - Przykład modelowania na MIRO
+  - Przejście z ES do EM
+  - Wyznaczanie SLICE - dlaczego to takie ważne
+  
+- 5 min. | Rozejście się do zespołów
+- 20 min. | Praca w zespołach nad EventModelingiem
+- 15 min. | Spotkanie wszystkich - pytania / wątpliwości
+- 30 min. | Kontynuacja pracy nad EventModelingiem
+
+---
+
+### KONIEC CZ. 1 - PRZERWA DO 13.00 - ok godziny (OBIAD) - Czas na luźne Q&A
+Dobrze w tym czasie upewnić się, że każdemu działa środowisko do implementacji.
+
+---
+
+### Część II - Implementacja modelu
+
+#### Programowanie - wprowadzenie (~ 1 godz.)
+- 45 min. | Od karteczek do implementacji - EventModeling
+  - Przejście przez przygotowany kod
+    - Dopisanie nowego kawałka
+  - Jak dzielić na slice i zadania
+  - Co to jest EventSourcing. Dlaczego to pomaga?
+  - Jak działa EventStore i dlaczego właśnie ta technologia?
+  
+#### Programowanie w parach / zespołach (~ 2 godz.)
+- 45 min. | Programowanie w zespołach
+- 15 min. | CatchUp - problemy / pytania
+- 45 min. | Programowanie w zespołach
+- 15 min. | Zakończenie i materiały do dalszego rozwoju
+
+>>>>>>>>>> KONIEC
+
+
+##### Kilka przydatnych linków
+- EventModeling a Bakery
+  https://www.youtube.com/watch?v=DhZBQWO34Pw
+  
+- EventModelingTimeTrackingSystemMeetUp
+  https://www.youtube.com/watch?v=DwC0rRzSVww&t=705s
+
+- EventModeling Slack:
+  https://join.slack.com/t/eventmodeling/shared_invite/zt-94a7pu2e-ZWg~uPFGxB5I0GB~be664w
+
+- Event Modeling with Adam Dymitruk
+  https://www.youtube.com/watch?v=jhybUa0_2eI
+
+- Event Modeling Deep Dive with Vaughn Vernon and Adam Dymitruk
+  https://www.youtube.com/watch?v=ufKgwjsD1l8
+
+- EventDriven Podcast (Episode 5 - Vaughn Vernon on DDD/CQRS/ES)
+  https://www.youtube.com/watch?v=PCgbeb8qPys
+
+Examples:
+- https://github.com/fraktalio/restaurant-demo
+- https://github.com/fraktalio/order-demo
+- https://github.com/fraktalio/courier-demo
+
+MIRO BOARDS:
+https://miro.com/app/board/o9J_ktrevAQ=/
+https://miro.com/app/board/o9J_kwc8qR0=/
+
+Workshop - Cinema:
+https://miro.com/app/board/o9J_ktTXNi0=/
+https://miro.com/app/board/o9J_krOfkGM=/
+https://miro.com/app/board/o9J_krimJVY=/
+
+Examples:
+https://github.com/eventmodeling/eventdriventhinking

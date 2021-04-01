@@ -1,0 +1,60 @@
+name: Node.js - ŻycieNaKodach.pl | Event Modeling Workshop
+
+on:
+  push:
+    paths:
+      - '.github/workflows/backend-nodejs.yml'
+      - 'backend-nodejs/**'
+      - '!**/README.md'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    env:
+      CI: true
+
+    defaults:
+      run:
+        working-directory: backend-nodejs
+
+    strategy:
+      matrix:
+        node-version: [ 14.x ]
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/backend-nodejs/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/backend-nodejs/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run lint:ci
+      - run: npm run format:ci
+      - run: npm run build --if-present
+      - name: Unit & Integration Tests | Start docker-compose with backend dependencies
+        run: docker-compose -f docker-compose.local.yaml --log-level INFO up -d
+      - name: Unit & Integration Tests | Run all tests
+        run: npm run test:ci
+#      - name: Upload test coverage report to Codecov
+#        uses: codecov/codecov-action@v1
+#        with:
+#          flags: backend, unittests, integrationtests
+#      - name: Mutation testing
+#        if: github.ref == 'refs/heads/develop'
+#        run: npx stryker run --logLevel error
+#        env:
+#          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
