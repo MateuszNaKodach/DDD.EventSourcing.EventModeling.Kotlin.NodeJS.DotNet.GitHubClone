@@ -2,8 +2,6 @@ using System;
 using EventModelingGitHubCloneDotNet.Shared.Application;
 using EventModelingGitHubCloneDotNet.Shared.Domain;
 using EventModelingGitHubCloneDotNet.Shared.Infrastructure;
-using EventModelingGitHubCloneDotNet.Slices.Automation.RequiredApprovesBranchProtectionRules;
-using EventModelingGitHubCloneDotNet.Slices.Automation.RequiredApprovesBranchProtectionRules.Command;
 using EventModelingGitHubCloneDotNet.Slices.Read.PullRequestComments.Core;
 using EventModelingGitHubCloneDotNet.Slices.Write.AddSinglePullRequestComment.Core;
 using EventStore.Client;
@@ -12,7 +10,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace EventModelingGitHubCloneDotNet
@@ -48,11 +45,7 @@ namespace EventModelingGitHubCloneDotNet
             services.AddPullRequestCommentsSlice(eventStore);
 
             //Automation Slices
-            services.AddRequiredApprovesBranchProtectionRulesSlice(
-                eventStore,
-                new HttpClientPullRequestBranchProtectionRules()
-            );
-
+            //TODO...
 
             services.AddSwaggerGen(c =>
             {

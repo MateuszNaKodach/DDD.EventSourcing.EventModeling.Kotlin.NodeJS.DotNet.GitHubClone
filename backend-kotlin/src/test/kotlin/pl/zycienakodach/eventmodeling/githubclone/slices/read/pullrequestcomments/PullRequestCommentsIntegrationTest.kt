@@ -1,9 +1,7 @@
 package pl.zycienakodach.eventmodeling.githubclone.slices.read.pullrequestcomments
 
 import assertk.assertThat
-import assertk.assertions.containsExactly
 import assertk.assertions.containsExactlyInAnyOrder
-import assertk.assertions.isEqualTo
 import com.eventstore.dbclient.EventStoreDBClient
 import org.awaitility.Awaitility
 import org.junit.jupiter.api.Test
@@ -15,7 +13,6 @@ import pl.zycienakodach.eventmodeling.githubclone.slices.read.pullrequestcomment
 import pl.zycienakodach.eventmodeling.githubclone.slices.read.pullrequestcomments.application.PullRequestCommentsRepository
 import pl.zycienakodach.eventmodeling.githubclone.slices.read.pullrequestcomments.domain.CommentDomainEvent
 import pl.zycienakodach.eventmodeling.githubclone.slices.read.pullrequestcomments.domain.SingleCommentWasAdded
-import pl.zycienakodach.eventmodeling.githubclone.slices.read.readrequiredapproves.application.PullRequestBranchSettings
 import pl.zycienakodach.eventmodeling.githubclone.testsupport.ReadSliceTestSupport
 import java.time.Instant
 import java.util.*

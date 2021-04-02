@@ -2,8 +2,6 @@ package pl.zycienakodach.eventmodeling.githubclone.slices.read.pullrequestcommen
 
 import com.eventstore.dbclient.*
 import org.slf4j.LoggerFactory
-import pl.zycienakodach.eventmodeling.githubclone.slices.read.readrequiredapproves.domain.PullRequestReviewingDomainEvent
-import pl.zycienakodach.eventmodeling.githubclone.slices.read.readrequiredapproves.domain.RequiredPullRequestReviewsWereConfigured
 import pl.zycienakodach.eventmodeling.githubclone.shared.application.EventMapper
 import pl.zycienakodach.eventmodeling.githubclone.shared.application.Projection
 import pl.zycienakodach.eventmodeling.githubclone.slices.read.pullrequestcomments.domain.CommentDomainEvent

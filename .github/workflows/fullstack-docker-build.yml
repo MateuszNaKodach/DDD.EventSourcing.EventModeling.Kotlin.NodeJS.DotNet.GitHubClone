@@ -2,6 +2,8 @@ name: Docker-Compose BUILD | Event Modeling Workshop
 
 on:
   push:
+    branches:
+      - docker-compose
     paths-ignore:
       - '**/README.md'
 
